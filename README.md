@@ -1,7 +1,7 @@
 Play framework 2 application on OpenShift Express
 ============================
 
-This git repository will help you get up and running quickly with a Play framework 2 application
+This git repository will help you get up and running quickly with a Play framework 2 (and greater) application
 on OpenShift Express taking advantage of the do-it-yourself cartridge.
 
 Running on OpenShift
@@ -9,20 +9,20 @@ Running on OpenShift
 
 Create a new Play framework 2 application
 
-    play new play2demo
-    cd play2demo
+    play new demo
+    cd demo
 
     git init
 
 Register at http://openshift.redhat.com/, and then create a diy (do-it-yourself) application:
 
-    rhc app create play2demo -t diy-0.1 --no-git -l yourlogin
+    rhc app create demo -t diy-0.1 --no-git -l yourlogin
 
 You will see something like the following:
 
 
 ```bash
-Creating application 'play2demo'
+Creating application 'demo'
 =========================
 
   Namespace: yourdomain
@@ -31,13 +31,13 @@ Creating application 'play2demo'
   Cartridge: diy-0.1
 
 Your application's domain name is being propagated worldwide (this might take a minute)...
-play2demo @ http://play2demo-yourdomain.rhcloud.com/
+demo @ http://demo-yourdomain.rhcloud.com/
 =================================
   Application Info
   ================
     Gear Size = small
-    Git URL   = ssh://your_uuid@play2demo-yourdomain.rhcloud.com/~/git/play2demo.git/
-    SSH URL   = ssh://your_uuid@play2demo-yourdomain.rhcloud.com
+    Git URL   = ssh://your_uuid@demo-yourdomain.rhcloud.com/~/git/demo.git/
+    SSH URL   = ssh://your_uuid@demo-yourdomain.rhcloud.com
     UUID      = your_uuid
     Created   = 6:06 PM
   Cartridges
@@ -45,21 +45,21 @@ play2demo @ http://play2demo-yourdomain.rhcloud.com/
     diy-0.1
 
 RESULT:
-Application play2demo was created.
+Application demo was created.
 Disclaimer: This is an experimental cartridge that provides a way to try unsupported languages,
 frameworks, and middleware on Openshift.
 ```
 
 Copy and paste the git url to add it as a remote repo (replace the uuid part with your own!)
 
-    git remote add origin ssh://your_uuid@play2demo-yourdomain.rhcloud.com/~/git/play2demo.git/
-    git pull -s recursive -X theirs origin master
+    git remote add openshift ssh://your_uuid@demo-yourdomain.rhcloud.com/~/git/demo.git/
+    git pull -s recursive -X theirs openshift master
     git add .
     git commit -m "initial deploy"
 
 And then add this repository as a remote repo named quickstart:
 
-    git remote add quickstart -m master git://github.com/opensas/play2-openshift-quickstart.git
+    git remote add quickstart -m master git@github.com:josephpconley/play-openshift-quickstart.git
     git pull -s recursive -X theirs quickstart master
 
 Then use the stage task to prepare your deployment
@@ -74,7 +74,7 @@ And add your changes to git's index, commit and push the repo upstream:
 
 That's it, you can now see your application running at:
 
-    http://play2demo-yourdomain.rhcloud.com
+    http://demo-yourdomain.rhcloud.com
 
 The first time you do it, it will take quite a few minutes to complete, because git has to upload play's dependencies, but after that git is smart enough to just upload the differences.
 
@@ -256,11 +256,11 @@ Trouble shooting
 
 To find out what's going on in openshift, issue
 
-    rhc app tail -a play2demo
+    rhc app tail -a demo
 
 If you feel like investigating further, you can
 
-    rhc app show -a play2demo
+    rhc app show -a demo
 
     Application Info
     ================
